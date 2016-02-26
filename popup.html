@@ -1,26 +1,42 @@
 <html>
 <head>
+  <style type="text/css">
+    .entry {
+      border:1px solid black;
+      padding:2px 5px;
+      margin:2px 5px;
+      vertical-align:center;
+      width:250px;
+    }
+
+    input[type=range] {
+      width:100%;
+    }
+  </style>
 </head>
 <body>
   <form>
     <div class="entry">
-      <label form="pbRate">Playback Rate (%-age):</label>
-      <input id="pbRate" type="text" value=""/>
+      <label form="pbRate">Playback Rate:</label>
+      <input id="pbRate" type="range" min="0" value="1" max="2"></input>
     </div>
     <div class="entry">
       <label for="controls">Controls:</label>
-      <input id="controls" type="text" value="1">On</input>
-      <input id="controls" type="text" value="0">Off</input>
+      <input id="controls" type="radio" value="on" checked>On</input>
+      <input id="controls" type="radio" value="off">Off</input>
     </div>
     <div class="entry">
       <label for="muted"> Muted:</label>
-      <input id="muted" type="text" value="">Mute</input>
-      <input id="muted" type="text" value="">Unmute</input>
+      <input id="muted" type="radio" value="mute">Mute</input>
+      <input id="muted" type="radio" value="unmute" checked>Unmute</input>
     </div>
     <div class="entry">
-      <label for="volume">Volume (%-age):</label>
+      <label for="volume">Volume:</label>
       <input id="volume" type="range" min="0" value="50" max="100"></input>
     </div>
+    <input id="submit" type="submit", value="Update"></input>
   </form>
+
+  <script src="popup.js" type="text/javascript"></script>
 </body>
 </html>
