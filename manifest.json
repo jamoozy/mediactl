@@ -1,9 +1,9 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "Media Control",
-  "description": "Add basic media controls to any media page.",
-  "version": "0.1",
+  "description": "Add basic media controls to any page with media on it.",
+  "version": "0.2",
 
   "icons": {
     "16": "images/icon16.png",
@@ -11,7 +11,7 @@
     "128": "images/icon128.png"
   },
 
-  "browser_action": {
+  "action": {
     "default_icon": {
       "19": "images/icon19.png",
       "38": "images/icon38.png"
@@ -22,17 +22,18 @@
 
   "content_scripts": [{
     "matches": [
-      "*://*/*"
+      "*://*/*",
+      "file:///**/*.mp3"
     ],
     "js": ["updateMedia.js"]
   }],
 
   "background": {
-    "scripts": ["eventPage.js"],
-    "persistent": true
+    "service_worker": "eventPage.js"
   },
 
   "permissions": [
+    "activeTab",
     "storage"
   ]
 }

@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -69,12 +69,12 @@
          id="g4171">
         <text
            xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#168f29;fill-opacity:1;stroke:#168f29;stroke-width:3.04381561;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
+           style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#10651d;fill-opacity:1;stroke:#10651d;stroke-width:3.04381561;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
            x="166.76086"
            y="171.41777"
            id="text4142"
            sodipodi:linespacing="125%"><tspan
-             style="font-weight:bold;fill:#168f29;fill-opacity:1;stroke-width:3.04381561;stroke-miterlimit:4;stroke-dasharray:none;stroke:#168f29;stroke-opacity:1;"
+             style="font-weight:bold;fill:#10651d;fill-opacity:1;stroke-width:3.04381561;stroke-miterlimit:4;stroke-dasharray:none;stroke:#10651d;stroke-opacity:1;"
              sodipodi:role="line"
              id="tspan4144"
              x="166.76086"
