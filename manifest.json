@@ -20,20 +20,15 @@
     "default_popup": "popup.html"
   },
 
-  "content_scripts": [{
-    "matches": [
-      "*://*/*",
-      "file:///**/*.mp3"
-    ],
-    "js": ["updateMedia.js"]
-  }],
+  "homepage_url": "https://github.com/jamoozy/mediactl",
 
   "background": {
     "service_worker": "eventPage.js"
   },
 
   "permissions": [
-    "activeTab",
-    "storage"
+    "scripting",
+    "storage",
+    "tabs"
   ]
 }

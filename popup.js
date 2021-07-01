@@ -10,22 +10,18 @@ var popup = (function popupScope() {
 
   // Updates the form.
   function updateForm(response) {
-    console.log('response: %O', response);
     if (!response) {
-      console.log('No previous data.');
+      console.debug('No previous data.');
       return;
     }
 
     state = Object.assign(state, response);
-    console.log('state now: %O', state);
 
     ////////////////////////
     // update popup HTML
 
-    console.log('state.playbackRate:', state.playbackRate);
-    for (opt of opts) {
+    for (const opt of opts) {
       const v = Number(opt.attributes['x-attr-value'].value);
-      console.log('opt:%O --> %s', opt, v);
       if (v === state.playbackRate) {
         opt.classList.add('active-option');
       } else {
@@ -36,18 +32,17 @@ var popup = (function popupScope() {
     document.getElementById('controls').checked = state.controls;
     document.getElementById('muted').checked = state.muted;
     document.getElementById('auto').checked = state.auto;
-    document.getElementById('volume').attributes['value'] = state.volume;
+    document.getElementById('volume').value = state.volume;
   }
 
-  // Sends the form.
   function saveForm() {
-    console.log('saveForm()');
-    console.log("Sending: %O", state);
+    console.log('save state: %O', state);
     chrome.runtime.sendMessage(state);
   }
 
+  // onclick handler for playback rate.
   function setPlaybackRate(ev) {
-    for (opt of opts) {
+    for (const opt of opts) {
       opt.classList.remove('active-option');
     }
     ev.target.classList.add('active-option');
@@ -55,13 +50,29 @@ var popup = (function popupScope() {
     saveForm()
   }
 
+  // Handles the change event for all checkboxes.
+  function handleCbChange(ev) {
+    state[ev.target.attributes['id'].value] = ev.target.checked;
+    saveForm();
+  }
+
+  function handleRangeChange(ev) {
+    state[ev.target.attributes['id'].value] = ev.target.value;
+    saveForm();
+  }
+
   return {
     // Initialize the popup.
     init: ev => {
-      chrome.runtime.sendMessage({req: true}, updateForm);
-      for (opt of opts) {
+      for (const opt of opts) {
         opt.onclick = setPlaybackRate;
       }
+      document.getElementById('controls').onchange = handleCbChange;
+      document.getElementById('muted').onchange = handleCbChange;
+      document.getElementById('auto').onchange = handleCbChange;
+      document.getElementById('volume').onchange = handleRangeChange;
+
+      chrome.runtime.sendMessage({req: true}, updateForm);
 
       //chrome.scripting.executeScript({
       //  target: {
