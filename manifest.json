@@ -26,6 +26,8 @@
     "service_worker": "eventPage.js"
   },
 
+  "host_permissions": [ "<all_urls>" ],
+
   "permissions": [
     "scripting",
     "storage",

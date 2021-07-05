@@ -1,4 +1,57 @@
-var popup = (function popupScope() {
+const tabRegistry = (() => {
+  const registry = {};
+
+  const reqButton = document.getElementById('permreq');
+  reqButton.addEventListener('click', ev => tabRegistry.addTab());
+
+  function getTab(cb) {
+    chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => cb(tab));
+  }
+
+  function addScript() {
+    getTab(tab => {
+      const alreadyGranted = chrome.permissions.contains({
+        permissions: ['scripting'],
+        origins:     [tab.url],
+      }, granted => {
+        if (!granted) {
+          reqButton.classList.remove('hidden');
+        } else {
+          execScript(tab);
+        }
+      });
+    });
+  }
+
+  function execScript(tab) {
+    console.log('tab is: %O', tab);
+    chrome.scripting.executeScript({
+      target: {
+        tabId: tab.id,
+        allFrames: true,
+      },
+      function: script,
+    }, res => {
+      console.log('got result(s): %O', res);
+    });
+  }
+
+  // This is the script we run in the actual page to enact some effect on the
+  // existing audio/video element(s).
+  function script() {
+    console.log('ran it');
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      console.log('got message: %O', request);
+    });
+    return true;
+  }
+
+  return {
+    addTab: addScript,
+  };
+})();
+
+const popup = (() => {
   const opts = document.getElementsByClassName("option"); // Options for playback rate.
   var state = {
     playbackRate: 1.0,
@@ -74,8 +127,7 @@ var popup = (function popupScope() {
 
       chrome.runtime.sendMessage({req: true}, updateForm);
 
-      //chrome.scripting.executeScript({
-      //  target: {
+      tabRegistry.addTab();
     },
   };
 })();
